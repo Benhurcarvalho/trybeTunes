@@ -1,36 +1,24 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Form extends Component {
-  state = {
-    isBtnDisabled: false,
-  };
-
-  ValidarBtn = ({ target }) => {
-    // console.log(target);
-    const { value } = target;
-    // console.log(value);
-    const carcterMin = 2;
-    this.setState({
-      isBtnDisabled: value.length >= carcterMin,
-    });
-  };
-
   render() {
-    const { isBtnDisabled } = this.state;
+    const { onClickButton, handleInputChange, isBtnDisabled } = this.props;
     return (
       <form>
         <input
           data-testid="search-artist-input"
           type="text"
-          name=""
+          name="searchInput"
           placeholder="Digite o nome da banda ou artista aqui"
-          onChange={ this.ValidarBtn }
+          onChange={ handleInputChange }
         />
         <input
           data-testid="search-artist-button"
           type="button"
           value="Pesquisar"
           disabled={ !isBtnDisabled }
+          onClick={ onClickButton }
         />
       </form>
     );
@@ -38,3 +26,9 @@ class Form extends Component {
 }
 
 export default Form;
+
+Form.propTypes = {
+  handleInputChange: PropTypes.func,
+  onClickButton: PropTypes.func,
+  isBtnDisabled: PropTypes.bool,
+}.isRequired;
