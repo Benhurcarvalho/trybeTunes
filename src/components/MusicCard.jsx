@@ -19,7 +19,7 @@ class MusicCard extends Component {
       loading: true,
     }, async () => {
       const { music } = this.props;
-      //   console.log(music);
+      console.log(music);
       const result = await addSong(music);
       if (result) {
         this.setState({
@@ -32,7 +32,7 @@ class MusicCard extends Component {
 
   render() {
     const {
-      // music,
+      music,
       favoritedSongs,
     } = this.props;
     const {
@@ -50,12 +50,11 @@ class MusicCard extends Component {
           >
             Favoritar
             <input
-            // data-testid={ `checkbox-music-${music.trackId}` }
+              data-testid={ `checkbox-music-${music.trackId}` }
               type="checkbox"
               name="favorita"
               id={ favoritedSongs }
               checked={ checked }
-              // checked={ checked || favoritedSongs.includes(String(music.trackId)) }
               onChange={ this.handleCheck }
             />
           </label>
