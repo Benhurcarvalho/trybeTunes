@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import getMusics from '../services/musicsAPI';
+import { getFavoriteSongs } from '../services/favoriteSongsAPI';
 import MusicCard from '../components/MusicCard';
 
 class Album extends Component {
@@ -10,6 +11,7 @@ class Album extends Component {
     this.state = {
       infoCollection: [],
       songIndexList: [],
+      favoritedSongs: [],
     };
   }
 
@@ -25,12 +27,17 @@ class Album extends Component {
         infoCollection: data[0],
       });
     }
+    const favoritedSongs = await getFavoriteSongs();
+    this.setState({
+      favoritedSongs: favoritedSongs.map(({ trackId }) => String(trackId)),
+    });
   }
 
   render() {
     const {
       infoCollection,
       songIndexList,
+      favoritedSongs,
     } = this.state;
     return (
       <div data-testid="page-album">
@@ -70,7 +77,10 @@ class Album extends Component {
                 <code>audio</code>
                 .
               </audio>
-              <MusicCard music={ track } />
+              <MusicCard
+                music={ track }
+                favoritedSongs={ favoritedSongs }
+              />
             </section>
           ))
         }

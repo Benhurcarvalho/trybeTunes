@@ -46,15 +46,15 @@ class MusicCard extends Component {
         <form>
           <p>Oi</p>
           <label
-            htmlFor="musica"
+            htmlFor={ `music-${music.trackId}` }
           >
             Favoritar
             <input
               data-testid={ `checkbox-music-${music.trackId}` }
               type="checkbox"
               name="favorita"
-              id={ favoritedSongs }
-              checked={ checked }
+              id={ `music-${music.trackId}` }
+              checked={ checked || favoritedSongs.includes(String(music.trackId)) }
               onChange={ this.handleCheck }
             />
           </label>
