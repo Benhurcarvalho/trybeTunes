@@ -5,7 +5,15 @@ import Form from '../components/Form';
 
 class Search extends Component {
   render() {
-    const { searchAlbumsAPIs, handleInputChange, isBtnDisabled } = this.props;
+    const {
+      searchInput,
+      searchInputArt,
+      searchAlbumsAPIs,
+      handleInputChange,
+      isBtnDisabled,
+      collection,
+      click,
+    } = this.props;
     return (
       <div data-testid="page-search">
         <Header />
@@ -13,6 +21,10 @@ class Search extends Component {
           onClickButton={ searchAlbumsAPIs }
           handleInputChange={ handleInputChange }
           isBtnDisabled={ isBtnDisabled }
+          collection={ collection }
+          searchInput={ searchInput }
+          searchInputArt={ searchInputArt }
+          click={ click }
         />
       </div>
     );
@@ -22,7 +34,11 @@ class Search extends Component {
 export default Search;
 
 Search.propTypes = {
+  searchInput: PropTypes.string,
+  searchInputArt: PropTypes.string,
   searchAlbumsAPIs: PropTypes.func,
   handleInputChange: PropTypes.func,
   isBtnDisabled: PropTypes.bool,
+  click: PropTypes.bool,
+  collection: PropTypes.arrayOf,
 }.isRequired;

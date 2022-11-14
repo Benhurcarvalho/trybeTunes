@@ -14,7 +14,11 @@ class App extends React.Component {
     super();
     this.state = {
       searchInput: '',
+      searchInputArt: '',
       isBtnDisabled: false,
+      click: false,
+      // notFoundcollection: false,
+      collection: [],
     };
   }
 
@@ -25,8 +29,8 @@ class App extends React.Component {
       const { searchInput } = this.state;
       const MinNumberInput = 2;
       const newButtonDisabled = searchInput.length >= MinNumberInput;
-      console.log(newButtonDisabled);
-      console.log(searchInput);
+      // console.log(newButtonDisabled);
+      // console.log(searchInput);
       this.setState({
         isBtnDisabled: newButtonDisabled,
       });
@@ -36,24 +40,32 @@ class App extends React.Component {
   searchAlbumsAPIs = async () => {
     const { searchInput } = this.state;
     const response = await searchAlbumsAPIs(searchInput);
-    console.log(response);
+    // const MinNumberCollection = 1;
+    // const newClick = response.length >= MinNumberCollection;
+    // console.log(newClick);
+    // console.log(response);
     // if (!response.results.length) {
     //   this.setState({
-    //     notFoundMessage: true,
+    //     notFoundcollection: true,
     //   });
     // } else {
-    //   response.results.forEach((item) => {
-    //     item.quantity = 1;
-    //   });
-    //   this.setState({
-    //     productList: response.results,
-    //     notFoundMessage: false,
-    //   });
-    // }
+    this.setState({
+      collection: response,
+      click: true,
+      searchInputArt: searchInput,
+      searchInput: '',
+      // notFoundcollection: false,
+    });
   };
 
   render() {
-    const { isBtnDisabled } = this.state;
+    const {
+      isBtnDisabled,
+      collection,
+      searchInput,
+      searchInputArt,
+      click,
+    } = this.state;
     return (
       <BrowserRouter>
         <p>TrybeTunes</p>
@@ -66,6 +78,10 @@ class App extends React.Component {
                 searchAlbumsAPIs={ this.searchAlbumsAPIs }
                 handleInputChange={ this.handleInputChange }
                 isBtnDisabled={ isBtnDisabled }
+                collection={ collection }
+                searchInput={ searchInput }
+                searchInputArt={ searchInputArt }
+                click={ click }
               />
             ) }
           />
