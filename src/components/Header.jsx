@@ -25,30 +25,39 @@ class Header extends Component {
   render() {
     const { name, carregando } = this.state;
     return (
-      <header data-testid="header-component">
+      <header
+        data-testid="header-component"
+      >
         { carregando ? <Carregando />
           : (
-            <h3
-              data-testid="header-user-name"
-            >
-              { name }
-            </h3>
+            <div className="header">
+              <h3
+                data-testid="header-user-name"
+                className="user-name"
+              >
+                <p className="header-name">
+                  { name }
+                </p>
+              </h3>
+              <div className="links">
+                <Link data-testid="link-to-search" to="/search">
+                  <span className="material-symbols-outlined">
+                    search
+                  </span>
+                </Link>
+                <Link data-testid="link-to-favorites" to="/favorites">
+                  <span className="material-symbols-outlined">
+                    favorite
+                  </span>
+                </Link>
+                <Link data-testid="link-to-profile" to="/profile">
+                  <span className="material-symbols-outlined">
+                    person
+                  </span>
+                </Link>
+              </div>
+            </div>
           )}
-        <Link data-testid="link-to-search" to="/search">
-          <button type="button">
-            Procurar
-          </button>
-        </Link>
-        <Link data-testid="link-to-favorites" to="/favorites">
-          <button type="button">
-            Favoritos
-          </button>
-        </Link>
-        <Link data-testid="link-to-profile" to="/profile">
-          <button type="button">
-            Perfil
-          </button>
-        </Link>
       </header>
     );
   }

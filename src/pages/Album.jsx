@@ -19,8 +19,6 @@ class Album extends Component {
     const { match: { params: { id } } } = this.props;
     const { songIndexList } = this.state;
     const data = await getMusics(id);
-    // console.log(data[0]);
-    // console.log(data.slice(1));
     if (songIndexList.length === 0) {
       this.setState({
         songIndexList: data.slice(1),
@@ -42,48 +40,57 @@ class Album extends Component {
     return (
       <div data-testid="page-album">
         <Header />
-        <div>
-          <img
-            src={ infoCollection.artworkUrl100 }
-            alt={ infoCollection.collectionName }
-          />
-          <p
-            data-testid="artist-name"
-          >
-            { infoCollection.artistName }
-          </p>
-          <p
-            data-testid="album-name"
-          >
-            { infoCollection.collectionName }
-          </p>
-        </div>
-        {
-          songIndexList.map((track) => (
-            <section
-              key={ track.trackId }
-              className="item"
+        <div className="album">
+
+          <div>
+            <img
+              src={ infoCollection.artworkUrl100 }
+              alt={ infoCollection.collectionName }
+            />
+            <p
+              className="result"
+              data-testid="artist-name"
             >
-              <p>{ track.trackName }</p>
-              <p>{ track.trackNumber }</p>
-              <audio
-                data-testid="audio-component"
-                src={ track.previewUrl }
-                controls
+              { infoCollection.artistName }
+            </p>
+            <p
+              className="result"
+              data-testid="album-name"
+            >
+              { infoCollection.collectionName }
+            </p>
+          </div>
+          {
+            songIndexList.map((track) => (
+              <section
+                key={ track.trackId }
+                className="item"
               >
-                <track kind="captions" />
-                O seu navegador não suporta o elemento
-                {' '}
-                <code>audio</code>
-                .
-              </audio>
-              <MusicCard
-                music={ track }
-                favoritedSongs={ favoritedSongs }
-              />
-            </section>
-          ))
-        }
+                <p className="result">{ track.trackName }</p>
+                <p className="result">{ track.trackNumber }</p>
+                <audio
+                  data-testid="audio-component"
+                  src={ track.previewUrl }
+                  controls
+                >
+                  <track kind="captions" />
+                  <p
+                    className="result"
+                  >
+                    O seu navegador não suporta o elemento
+                  </p>
+                  {' '}
+                  <code>audio</code>
+                  .
+                </audio>
+                <MusicCard
+                  music={ track }
+                  favoritedSongs={ favoritedSongs }
+                />
+              </section>
+            ))
+          }
+        </div>
       </div>
     );
   }

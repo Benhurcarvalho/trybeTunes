@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { createUser } from '../services/userAPI';
 import Carregando from './Carregando';
+import logo from '../images/logo.png';
 
 class Login extends Component {
   state = {
@@ -12,9 +13,7 @@ class Login extends Component {
   };
 
   ValidarBtn = ({ target }) => {
-    // console.log(target);
     const { value } = target;
-    // console.log(value);
     const carcterMin = 3;
     this.setState({
       name: value,
@@ -38,33 +37,46 @@ class Login extends Component {
 
   render() {
     const { isBtnDisabled, carregando, login } = this.state;
-    // console.log(carregando);
-    // console.log(login);
-    // console.log(createUser);
-    // console.log(Redirect);
-    // console.log(Carregando);
     return (
-      <div data-testid="page-login">
+      <div
+        className="page-login"
+        data-testid="page-login box"
+      >
         { carregando ? <Carregando />
           : (
-            <form className="Login">
-              <input
-                className="nome"
-                type="text"
-                name="name"
-                data-testid="login-name-input"
-                placeholder="Digite seu nome"
-                onChange={ this.ValidarBtn }
+            <form className="Login field">
+              <img
+                src={ logo }
+                alt="img"
               />
-              <button
-                type="submit"
-                className="btnEntrar"
-                data-testid="login-submit-button"
-                onClick={ this.SalveUser }
-                disabled={ !isBtnDisabled }
+              <label
+                className="label label-name"
+                htmlFor="nome"
               >
-                Entrar
-              </button>
+                <div className="control">
+                  {/* <p>Nome:</p> */}
+                  <input
+                    id="nome"
+                    className="nome input is-success"
+                    type="text"
+                    name="name"
+                    data-testid="login-name-input"
+                    placeholder="Digite seu nome"
+                    onChange={ this.ValidarBtn }
+                  />
+                </div>
+              </label>
+              <div className="control">
+                <button
+                  type="submit"
+                  className="button is-info is-outlined entrar"
+                  data-testid="login-submit-button"
+                  onClick={ this.SalveUser }
+                  disabled={ !isBtnDisabled }
+                >
+                  Entrar
+                </button>
+              </div>
             </form>
           ) }
         {login && <Redirect to="/search" /> }

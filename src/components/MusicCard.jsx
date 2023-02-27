@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { addSong } from '../services/favoriteSongsAPI';
+import Carregando from '../pages/Carregando';
 
 class MusicCard extends Component {
   constructor() {
@@ -25,7 +26,6 @@ class MusicCard extends Component {
         this.setState({
           loading: false,
         });
-        console.log(result);
       }
     });
   };
@@ -39,17 +39,16 @@ class MusicCard extends Component {
       checked,
       loading,
     } = this.state;
-    // console.log(this);
-    if (loading) return <p>Carregando...</p>;
+    if (loading) return <Carregando />;
     return (
       <div>
         <form>
-          <p>Oi</p>
           <label
             htmlFor={ `music-${music.trackId}` }
           >
-            Favoritar
+            <p className="result">Favoritar</p>
             <input
+              className="checkbox"
               data-testid={ `checkbox-music-${music.trackId}` }
               type="checkbox"
               name="favorita"

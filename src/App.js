@@ -8,6 +8,8 @@ import Profile from './pages/Profile';
 import ProfileEdit from './pages/ProfileEdit';
 import NotFound from './pages/NotFound';
 import searchAlbumsAPIs from './services/searchAlbumsAPI';
+import './App.css';
+import 'bulma/css/bulma.min.css';
 
 class App extends React.Component {
   constructor() {
@@ -68,29 +70,30 @@ class App extends React.Component {
     } = this.state;
     return (
       <BrowserRouter>
-        <p>TrybeTunes</p>
-        <Switch>
-          <Route exact path="/" component={ Login } />
-          <Route
-            path="/search"
-            render={ () => (
-              <Search
-                searchAlbumsAPIs={ this.searchAlbumsAPIs }
-                handleInputChange={ this.handleInputChange }
-                isBtnDisabled={ isBtnDisabled }
-                collection={ collection }
-                searchInput={ searchInput }
-                searchInputArt={ searchInputArt }
-                click={ click }
-              />
-            ) }
-          />
-          <Route path="/album/:id" component={ Album } />
-          <Route path="/favorites" component={ Favorites } />
-          <Route path="/profile/edit" component={ ProfileEdit } />
-          <Route path="/profile" component={ Profile } />
-          <Route path="" component={ NotFound } />
-        </Switch>
+        <main className="div-main">
+          <Switch>
+            <Route exact path="/" component={ Login } />
+            <Route
+              path="/search"
+              render={ () => (
+                <Search
+                  searchAlbumsAPIs={ this.searchAlbumsAPIs }
+                  handleInputChange={ this.handleInputChange }
+                  isBtnDisabled={ isBtnDisabled }
+                  collection={ collection }
+                  searchInput={ searchInput }
+                  searchInputArt={ searchInputArt }
+                  click={ click }
+                />
+              ) }
+            />
+            <Route path="/album/:id" component={ Album } />
+            <Route path="/favorites" component={ Favorites } />
+            <Route path="/profile/edit" component={ ProfileEdit } />
+            <Route path="/profile" component={ Profile } />
+            <Route path="" component={ NotFound } />
+          </Switch>
+        </main>
       </BrowserRouter>
     );
   }

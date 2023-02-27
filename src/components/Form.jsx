@@ -16,46 +16,69 @@ class Form extends Component {
     // console.log(click);
     return (
       <div>
-        <form>
+        <form className="form-input">
           <input
             data-testid="search-artist-input"
+            className="nome input is-success"
             type="text"
             name="searchInput"
             placeholder="Digite o nome da banda ou artista aqui"
             value={ searchInput }
             onChange={ handleInputChange }
           />
-          <input
+          <button
+            className="button is-info"
             data-testid="search-artist-button"
             type="button"
             value="Pesquisar"
             disabled={ !isBtnDisabled }
             onClick={ onClickButton }
-          />
+
+          >
+            <span className="material-symbols-outlined">
+              search
+            </span>
+            <span>Pesquisar</span>
+          </button>
         </form>
-        <div>
+        <div className="list">
           <div>
             { collection.length > 1
-                && <p>{`Resultado de álbuns de: ${searchInputArt}`}</p>}
+                && (
+                  <p
+                    className="result"
+                  >
+                    Resultado de álbuns de: &#160;
+                    <span
+                      style={ {
+                        textTransform: 'uppercase',
+                        fontStyle: 'italic',
+                      } }
+                    >
+                      {searchInputArt}
+
+                    </span>
+
+                  </p>)}
             { collection.length === 0 && click === true
-                && <p>Nenhum álbum foi encontrado</p>}
+                && <p className="result">Nenhum álbum foi encontrado</p>}
           </div>
           {
             collection.map((product) => (
               <section
                 key={ product.collectionId }
                 data-testid="product"
-                className="item"
+                className="item-list"
               >
                 <Link
                   data-testid={ `link-to-album-${product.collectionId}` }
                   to={ `/album/${product.collectionId}` }
                 >
                   <img src={ product.artworkUrl100 } alt={ product.collectionName } />
-                  <p>{`Artista ${product.artistName}`}</p>
-                  <p>{`Albuns ${product.collectionName}`}</p>
-                  <p>{`Faixas ${product.trackCount}`}</p>
-                  <p>{`Id ${product.collectionId}`}</p>
+                  <p className="result-list">{`Artista ${product.artistName}`}</p>
+                  <p className="result-list">{`Albuns ${product.collectionName}`}</p>
+                  <p className="result-list">{`Faixas ${product.trackCount}`}</p>
+                  <p className="result-list">{`Id ${product.collectionId}`}</p>
                 </Link>
               </section>
             ))
